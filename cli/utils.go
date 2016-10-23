@@ -37,6 +37,7 @@ func CopyFile(source string, dest string) (err error) {
 
 	return
 }
+
 func CopyDir(source string, dest string) (err error) {
 
 	// get properties of source dir
@@ -77,9 +78,15 @@ func CopyDir(source string, dest string) (err error) {
 		}
 
 	}
+
 	return
 }
 
 func ExpandDir(dir string, subdir string) string {
 	return dir + "/" + subdir
+}
+
+func DirName(path string) string {
+	aux := strings.Split(path, "/")
+	return aux[len(aux)-1]
 }

@@ -3,7 +3,7 @@ package cli
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
+	"os"
 )
 
 var currentCommand = &cobra.Command{
@@ -13,5 +13,7 @@ var currentCommand = &cobra.Command{
 }
 
 func current(cmd *cobra.Command, args []string) {
-	fmt.Println(viper.GetString("themes.current"))
+	currentThemeFolder := configPath + "/themes/current"
+	theme, _ := os.Readlink(currentThemeFolder)
+	fmt.Println(DirName(theme))
 }

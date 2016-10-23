@@ -1,31 +1,28 @@
 package cli
 
 import (
+	"errors"
 	"fmt"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 	"os"
 )
 
-var theemanPath, _ = homedir.Expand("~/.theeman")
+var configPath string
 
-func setupConfig() {
-	_, err := os.Stat(theemanPath)
+func setupConfig() error {
+	configPath, _ = homedir.Expand("~/.theeman")
+
+	_, err := os.Stat(configPath)
 	if err != nil {
-		fmt.Println("Creating config folder at ~/.theeman ...")
-		CopyDir(".theeman", theemanPath)
+		return errors.New(fmt.Sprintf("Missing config folder at %s", configPath))
 	}
 
-	setupViperDefaults()
-}
-
-func setupViperDefaults() {
+	viper.SetConfigType("toml")
 	viper.SetConfigName("config")
-	viper.AddConfigPath(theemanPath)
-	viper.AddConfigPath(".")
-	err := viper.ReadInConfig()
 
-	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
-	}
+	viper.AddConfigPath(configPath)
+
+	err = viper.ReadInConfig()
+	return err
 }

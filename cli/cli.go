@@ -10,14 +10,14 @@ var TheemanCommand = &cobra.Command{
 	Long:  "theeman is the main command to manage your desktop themes",
 }
 
-func AddCommands() {
+func addCommands() {
 	TheemanCommand.AddCommand(listCommand)
 	TheemanCommand.AddCommand(currentCommand)
+	TheemanCommand.AddCommand(applyCommand)
 }
 
 func Execute() {
-	AddCommands()
 	setupConfig()
-
+	addCommands()
 	TheemanCommand.Execute()
 }

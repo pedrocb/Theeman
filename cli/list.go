@@ -3,7 +3,6 @@ package cli
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"io/ioutil"
 )
 
 var listCommand = &cobra.Command{
@@ -14,8 +13,8 @@ var listCommand = &cobra.Command{
 }
 
 func list(cmd *cobra.Command, args []string) {
-	files, _ := ioutil.ReadDir(theemanPath + "/themes")
-	for _, f := range files {
-		fmt.Println(RemoveExtension(f.Name()))
+	themes := get_themes()
+	for _, f := range themes {
+		fmt.Println(f)
 	}
 }
