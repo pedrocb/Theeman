@@ -20,7 +20,7 @@
         "bottom-bar": {
             "focused-workspace": "#98D597",
             "unfocused-workspace": "#4D4D4D",
-	          "empty-workspace": "#000000"
+	    "empty-workspace": "#000000"
         },
         "script": "~/.bin/lemonbarpanel"
     },

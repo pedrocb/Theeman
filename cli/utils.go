@@ -90,3 +90,8 @@ func DirName(path string) string {
 	aux := strings.Split(path, "/")
 	return aux[len(aux)-1]
 }
+
+func ForceSymlink(originalPath string, newPath string) error {
+	os.Remove(newPath)
+	return os.Symlink(originalPath, newPath)
+}

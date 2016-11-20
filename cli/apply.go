@@ -2,9 +2,7 @@ package cli
 
 import (
 	"errors"
-	"fmt"
 	"github.com/spf13/cobra"
-	"os"
 )
 
 var applyCommand = &cobra.Command{
@@ -14,13 +12,14 @@ var applyCommand = &cobra.Command{
 }
 
 func apply(cmd *cobra.Command, args []string) (e error) {
-	themesPath := ExpandDir(configPath, "themes")
 	if len(args) < 1 {
 		return errors.New("A theme must be specified")
 	}
 	if theme_exists(args[0]) {
-		os.Remove(ExpandDir(themesPath, "current"))
-		err := os.Symlink(ExpandDir(themesPath, args[0]), ExpandDir(themesPath, "current"))
+		var currentThemePath = ExpandDir(themesPath, "current")
+		load_theme(ExpandDir(themesPath, args[0]))
+		err := ForceSymlink(ExpandDir(themesPath, args[0]), currentThemePath)
+		return err
 	}
 	return nil
 }

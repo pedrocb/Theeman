@@ -9,10 +9,11 @@ import (
 )
 
 var configPath string
+var themesPath string
 
 func setupConfig() error {
 	configPath, _ = homedir.Expand("~/.theeman")
-
+	themesPath = ExpandDir(configPath, "themes")
 	_, err := os.Stat(configPath)
 	if err != nil {
 		return errors.New(fmt.Sprintf("Missing config folder at %s", configPath))

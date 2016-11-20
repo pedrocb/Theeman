@@ -1,0 +1,6 @@
+vars:
+
+i3:
+  client-focused:
+    border: "#2F8971"
+    background: "#2F8971"
