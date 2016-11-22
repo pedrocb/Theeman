@@ -3,6 +3,7 @@ package cli
 import (
 	"github.com/spf13/viper"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"os/exec"
 	"strings"
@@ -50,11 +51,17 @@ func load_theme(path string) error {
 	}
 
 	if _, err = os.Stat(ExpandDir(path, "bar/bar.sh")); err == nil {
-		barPath := viper.GetString("")
+
 	}
 
 	if _, err = os.Stat(ExpandDir(path, "rofi/config")); err == nil {
+	}
 
+	wallpapersPath := ExpandDir(path, "wallpaper")
+	if _, err = os.Stat(wallpapersPath); err == nil {
+		wallpapers, _ := ioutil.ReadDir(wallpapersPath)
+		wallpaper := wallpapers[rand.Intn(len(wallpapers))].Name()
+		err = exec.Command("feh", "--bg-scale", ExpandDir(wallpapersPath, wallpaper)).Run()
 	}
 	return err
 }
