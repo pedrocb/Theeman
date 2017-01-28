@@ -4,20 +4,21 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var TheemanCommand = &cobra.Command{
+var theemanCommand = &cobra.Command{
 	Use:   "theeman",
 	Short: "theeman is a theme manager",
 	Long:  "theeman is the main command to manage your desktop themes",
 }
 
 func addCommands() {
-	TheemanCommand.AddCommand(listCommand)
-	TheemanCommand.AddCommand(currentCommand)
-	TheemanCommand.AddCommand(applyCommand)
+	theemanCommand.AddCommand(listCommand)
+	theemanCommand.AddCommand(currentCommand)
+	theemanCommand.AddCommand(applyCommand)
+	theemanCommand.AddCommand(yamlCommand)
 }
 
 func Execute() {
 	setupConfig()
 	addCommands()
-	TheemanCommand.Execute()
+	theemanCommand.Execute()
 }
