@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"math/rand"
@@ -50,8 +51,9 @@ func load_theme(path string) error {
 		}
 	}
 
-	if _, err = os.Stat(ExpandDir(path, "bar/bar.sh")); err == nil {
-
+	barPath := ExpandDir(path, "bar/bar.sh")
+	if _, err = os.Stat(barPath); err == nil {
+		exec.Command("sh", barPath).Run()
 	}
 
 	if _, err = os.Stat(ExpandDir(path, "rofi/config")); err == nil {

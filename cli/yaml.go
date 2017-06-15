@@ -2,6 +2,7 @@ package cli
 
 import (
 	"errors"
+	"fmt"
 	"github.com/cbroglie/mustache"
 	"github.com/smallfish/simpleyaml"
 	"github.com/spf13/cobra"
@@ -17,12 +18,13 @@ var yamlCommand = &cobra.Command{
 var yamlVars = make(map[string]string)
 
 func yaml(cmd *cobra.Command, args []string) error {
-	if len(args) < 3 {
-		return errors.New("You must specify a yaml file, a template file and a output file")
+	if len(args) < 2 {
+		return errors.New("You must specify a yaml file and a template file")
 	}
-	yamlFile := args[0]
-	templateFile := args[1]
-	outputFile := args[2]
+	return applyYaml(args[0], args[1])
+}
+
+func applyYaml(yamlFile string, templateFile string) error {
 	vars, err := loadYamlFile(yamlFile)
 	if err != nil {
 		return err
@@ -33,7 +35,7 @@ func yaml(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
-	ioutil.WriteFile(outputFile, []byte(finalContent), 0644)
+	fmt.Println(finalContent)
 	return nil
 }
 
