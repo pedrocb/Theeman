@@ -1,5 +1,5 @@
 # Theeman
 
-Personal Linux Theme Manager - WP
+Personal Linux Theme Manager - WIP
 
 
