@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"fmt"
 	"github.com/spf13/viper"
 	"io/ioutil"
 	"math/rand"
@@ -13,7 +12,7 @@ import (
 func get_themes() []string {
 	files, _ := ioutil.ReadDir(themesPath)
 
-	result := make([]string, len(files)-1)
+	result := make([]string, len(files))
 	var themeName string
 	i := 0
 	for _, f := range files {
@@ -53,7 +52,7 @@ func load_theme(path string) error {
 
 	barPath := ExpandDir(path, "bar/bar.sh")
 	if _, err = os.Stat(barPath); err == nil {
-		exec.Command("sh", barPath).Run()
+		exec.Command("setsid", barPath, "&").Run()
 	}
 
 	if _, err = os.Stat(ExpandDir(path, "rofi/config")); err == nil {
